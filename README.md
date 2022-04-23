@@ -35,93 +35,96 @@ implementation 'com.github.cortezvini97:DigitalSignature:1.0.0'
 ### Java
 
 ```java
-    private DigitalSignature digitalSignature;
+private Button btnSave, btnClear;
+private DigitalSignature digitalSignature;
 ```
 
 
 ```java
-    digitalSignature = findViewById(R.id.digitalSignature);
-    btnSave = findViewById(R.id.btn_Save);
-    btnClear = findViewById(R.id.btn_Clear);
+digitalSignature = findViewById(R.id.digitalSignature);
+btnSave = findViewById(R.id.btn_Save);
+btnClear = findViewById(R.id.btn_Clear);
 
-    digitalSignature.setOnToSignListener(new DigitalSignature.OnToSignListener() {
-            @Override
-            public void onStartSignature() {
-                //Start Event
-            }
+digitalSignature.setOnToSignListener(new DigitalSignature.OnToSignListener() {
+    @Override
+    public void onStartSignature() {
+        //Start Event
+    }
 
-            @Override
-            public void onSigned() {
-                //On onSigned Event 
-            }
+    @Override
+    public void onSigned() {
+        //On onSigned Event
+        btnSave.setEnabled(true);
+        btnClear.setEnabled(true);
+    }
 
-            @Override
-            public void onClear() {
-                //OnClear Event
-            }
+    @Override
+    public void onClear() {
+        //OnClear Event
+        btnSave.setEnabled(false);
+        btnClear.setEnabled(false);
+    }
 
-            @Override
-            public void onSave(String tmpFile)
-            {
-                //OnSave Event
-            }
-        });
+    @Override
+    public void onSave(String tmpFile){
+        //OnSave Event
+    }
+});
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                digitalSignature.save(getApplicationContext());
-            }
-        });
+btnSave.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        digitalSignature.save(getApplicationContext());
+    }
+});
 
-        btnClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                digitalSignature.clear();
-            }
-        });
+btnClear.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        digitalSignature.clear();
+    }
+});
 ```
 
 ### Kotlin
 
 ```kotlin
+var btnSave:Button? = null
+var btnClear:Button? = null
 var digitalSignature:DigitalSignature? = null
 ```
 
 ```kotlin
 digitalSignature = findViewById(R.id.digitalSignature)
 
-        digitalSignature?.setOnToSignListener(object: DigitalSignature.OnToSignListener{
-            override fun onStartSignature() {
-                Toast.makeText(applicationContext, "Start", Toast.LENGTH_SHORT).show()
-            }
+digitalSignature?.setOnToSignListener(object: DigitalSignature.OnToSignListener{
+    override fun onStartSignature() {
+                //Start Event
+    }
 
-            override fun onSigned() {
-                btnSave?.isEnabled = true
-                btnClear?.isEnabled = true
-            }
+    override fun onSigned() {
+        //On onSigned Event
+        btnSave?.isEnabled = true
+        btnClear?.isEnabled = true
+    }
 
-            override fun onClear()
-            {
-                btnSave?.isEnabled = false
-                btnClear?.isEnabled = false
-            }
+    override fun onClear(){
+        //OnClear Event
+        btnSave?.isEnabled = false
+        btnClear?.isEnabled = false
+    }
 
-            override fun onSave(tmpFile: String?)
-            {
-                finish()
-                val intent:Intent = Intent(applicationContext, MainActivity::class.java)
-                intent.putExtra("filePath", tmpFile)
-                startActivity(intent)
-            }
-        })
+    override fun onSave(tmpFile: String?) {
+        //Save Event
+    }
+})
 
-        btnSave?.setOnClickListener {
-            digitalSignature?.save(applicationContext)
-        }
+btnSave?.setOnClickListener {
+    digitalSignature?.save(applicationContext)
+}
 
-        btnClear?.setOnClickListener {
-            digitalSignature?.clear()
-        }
+btnClear?.setOnClickListener {
+    digitalSignature?.clear()
+}
 
 ```
