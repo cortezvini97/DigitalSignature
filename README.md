@@ -1,10 +1,10 @@
-# digital_signature
+# DigitalSignature
 
 Pad Digital Signature component.
 
 ## Licence
 
-[MIT LICENSE](https://github.com/cortezvini97/digital_signature/blob/master/LICENSE)
+[MIT LICENSE](https://github.com/cortezvini97/DigitalSignature/blob/master/LICENSE)
 
 ## Usage
 
@@ -22,7 +22,7 @@ allprojects {
 Add the dependency
 
 ```gradle
-implementation 'com.github.cortezvini97:digital_signature:1.0.0'
+implementation 'com.github.cortezvini97:DigitalSignature:1.0.0'
 ````
 
 ```xml
