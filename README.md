@@ -28,13 +28,16 @@ implementation 'com.github.cortezvini97:DigitalSignature:1.0.0'
 ```xml
 <com.vcinsidedigital.digitalsignature.DigitalSignature
         android:id="@+id/digitalSignature"
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 ````
+
+### Java
 
 ```java
     private DigitalSignature digitalSignature;
 ```
+
 
 ```java
     digitalSignature = findViewById(R.id.digitalSignature);
@@ -77,5 +80,48 @@ implementation 'com.github.cortezvini97:DigitalSignature:1.0.0'
                 digitalSignature.clear();
             }
         });
+```
+
+### Kotlin
+
+```kotlin
+var digitalSignature:DigitalSignature? = null
+```
+
+```kotlin
+digitalSignature = findViewById(R.id.digitalSignature)
+
+        digitalSignature?.setOnToSignListener(object: DigitalSignature.OnToSignListener{
+            override fun onStartSignature() {
+                Toast.makeText(applicationContext, "Start", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onSigned() {
+                btnSave?.isEnabled = true
+                btnClear?.isEnabled = true
+            }
+
+            override fun onClear()
+            {
+                btnSave?.isEnabled = false
+                btnClear?.isEnabled = false
+            }
+
+            override fun onSave(tmpFile: String?)
+            {
+                finish()
+                val intent:Intent = Intent(applicationContext, MainActivity::class.java)
+                intent.putExtra("filePath", tmpFile)
+                startActivity(intent)
+            }
+        })
+
+        btnSave?.setOnClickListener {
+            digitalSignature?.save(applicationContext)
+        }
+
+        btnClear?.setOnClickListener {
+            digitalSignature?.clear()
+        }
 
 ```
